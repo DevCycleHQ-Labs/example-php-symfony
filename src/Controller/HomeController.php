@@ -21,19 +21,12 @@ class HomeController extends AbstractController
         # Establish a connection to DevCycle
         #--------------------------------------------------------------------
 
-        // Set up the DevCycle client configuration with your server-side SDK key.
-        // The SDK key is retrieved from environment variables for security.
-        $config = DevCycleConfiguration::getDefaultConfiguration()->setApiKey(
-            "Authorization",
-            $_ENV["DEVCYCLE_SERVER_SDK_KEY"]
-        );
-
         // Initialize the DevCycle client with the configured settings.
-        // Optionally, you can pass a custom HTTP client that implements `GuzzleHttp\ClientInterface`.
-        // If not provided, GuzzleHttp\Client will be used by default.
+        $options = new DevCycleOptions();
+
         $devcycle_client = new DevCycleClient(
-            $config,
-            new Client(), // This is the HTTP client used for making API requests.
+            sdkKey: $_ENV["DEVCYCLE_SERVER_SDK_KEY"],
+            dvcOptions: $options
         );
 
         // Create a DevCycle user object with a unique user identifier.
